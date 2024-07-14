@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/mpoo_supermarket
+    username: postgres
+    password: Pedro$082003
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      show-sql: false

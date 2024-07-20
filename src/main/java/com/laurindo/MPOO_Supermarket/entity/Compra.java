@@ -1,13 +1,16 @@
 package com.laurindo.MPOO_Supermarket.entity;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -21,9 +24,12 @@ public class Compra implements Serializable {
 	private Long id;
 	private Double valorTotal;
 	
+	@OneToMany(mappedBy = "id.compra")
+	private Set<ItemCompra> itens = new HashSet<>();
+	
 	@OneToOne(mappedBy = "compra", cascade = CascadeType.ALL)
 	private Pagamento pagamento;
-	
+
 	public Compra() {}
 	
 	public Compra(Long id, Double valorTotal) {
@@ -59,6 +65,10 @@ public class Compra implements Serializable {
 
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
+	}
+	
+	public Set<ItemCompra> getItens() {
+		return itens;
 	}
 
 	@Override

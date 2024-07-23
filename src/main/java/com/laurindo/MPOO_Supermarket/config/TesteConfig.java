@@ -8,12 +8,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.laurindo.MPOO_Supermarket.entity.Caixa;
+import com.laurindo.MPOO_Supermarket.entity.Categoria;
 import com.laurindo.MPOO_Supermarket.entity.Compra;
 import com.laurindo.MPOO_Supermarket.entity.Gerente;
 import com.laurindo.MPOO_Supermarket.entity.ItemCompra;
+import com.laurindo.MPOO_Supermarket.entity.Pagamento;
 import com.laurindo.MPOO_Supermarket.entity.Produto;
 import com.laurindo.MPOO_Supermarket.entity.Vendedor;
 import com.laurindo.MPOO_Supermarket.repository.CaixaRepository;
+import com.laurindo.MPOO_Supermarket.repository.CategoriaRepository;
 import com.laurindo.MPOO_Supermarket.repository.CompraRepository;
 import com.laurindo.MPOO_Supermarket.repository.GerenteRepository;
 import com.laurindo.MPOO_Supermarket.repository.ItemCompraRepository;
@@ -42,6 +45,8 @@ public class TesteConfig implements CommandLineRunner {
 	@Autowired
 	ItemCompraRepository itemCompraRepository;
 	
+	@Autowired
+	CategoriaRepository categoriaRepository;
 	
 	
 	@Override
@@ -54,18 +59,30 @@ public class TesteConfig implements CommandLineRunner {
 		var compra1 = new Compra();
 		var produto1 = new Produto(null, "TV", 1500.0, 40, "Smart TV", false);
 		var produto2 = new Produto(null, "Iphoe", 2300.0, 10, "Iphone 15", false);
+		var categoria1 = new Categoria(null, "Eletrônicos");
+		var categoria2 = new Categoria(null, "TVs");
+		var categoria3 = new Categoria(null, "Celulares");
 		var itemCompra1 = new ItemCompra(produto1, compra1, 3, produto1.getPreco());
 		var itemCompra2 = new ItemCompra(produto2, compra1, 3, produto2.getPreco());
+		
+		
+		
 		
 		compra1.getItens().add(itemCompra1);
 		compra1.getItens().add(itemCompra2);
 		
+		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
 		gerenteRepository.save(gerente1);
 		vendedorRepository.save(vendedor1);
 		vendedorRepository.save(vendedor2);
 		caixaRepository.save(caixa1);
+		produto1.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
+		produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria3));
 		produtoRepository.saveAll(Arrays.asList(produto1, produto2));
+		var pagamento1 = new Pagamento(null, compra1);
+		compra1.setPagamento(pagamento1);
 		compraRepository.save(compra1);
+		//compraRepository.save(compra1);
 		itemCompraRepository.saveAll(Arrays.asList(itemCompra1, itemCompra2));
 		
 		

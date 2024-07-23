@@ -28,10 +28,10 @@ public class Pagamento implements Serializable {
 	
 	public Pagamento() {}
 
-	public Pagamento(Long id, Instant moment, Compra compra) {
+	public Pagamento(Long id, Compra compra) {
 		super();
 		this.id = id;
-		this.moment = moment;
+		this.moment = Instant.now();
 		this.compra = compra;
 	}
 

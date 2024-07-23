@@ -29,7 +29,7 @@ public class Categoria implements Serializable {
 	private Set<Produto> produtos = new HashSet<>();
 
 	public Categoria() {}
-
+	
 	public Categoria(Long id, String nome) {
 		this.id = id;
 		this.nome = nome;

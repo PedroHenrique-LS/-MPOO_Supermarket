@@ -29,6 +29,8 @@ public class ItemCompra implements Serializable {
 		this.preco = preco;
 	}
 	
+	
+	
 	public Produto getProduto() {
 		return id.getProduto();
 	}
@@ -62,6 +64,10 @@ public class ItemCompra implements Serializable {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+	
+	public Double getSubTotal() {
+		return quantidade * preco;
 	}
 
 	@Override

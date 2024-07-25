@@ -1,6 +1,7 @@
 package com.laurindo.MPOO_Supermarket.entity;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -18,28 +19,25 @@ import jakarta.persistence.Table;
 @Table(name = "tb_compra")
 public class Compra implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private Double valorTotal;
-	
+	private Instant momento;
+
 	@OneToMany(mappedBy = "id.compra")
 	private Set<ItemCompra> itens = new HashSet<>();
-	
+
 	@OneToOne(mappedBy = "compra", cascade = CascadeType.ALL)
 	private Pagamento pagamento;
 
-	public Compra() {}
-	
-	public Compra(Long id, Double valorTotal) {
-		this.id = id;
-		this.valorTotal = valorTotal;
+	public Compra() {
+		this.momento = Instant.now();
 	}
 
-	public Compra(Long id, Double valorTotal, Pagamento pagamento) {
+	public Compra(Long id, Pagamento pagamento) {
 		this.id = id;
-		this.valorTotal = valorTotal;
+		this.momento = Instant.now();
 		this.pagamento = pagamento;
 	}
 
@@ -51,12 +49,12 @@ public class Compra implements Serializable {
 		this.id = id;
 	}
 
-	public Double getValorTotal() {
-		return valorTotal;
+	public Instant getMomento() {
+		return momento;
 	}
 
-	public void setValorTotal(Double valorTotal) {
-		this.valorTotal = valorTotal;
+	public void setMomento(Instant momento) {
+		this.momento = momento;
 	}
 
 	public Pagamento getPagamento() {
@@ -66,9 +64,13 @@ public class Compra implements Serializable {
 	public void setPagamento(Pagamento pagamento) {
 		this.pagamento = pagamento;
 	}
-	
+
 	public Set<ItemCompra> getItens() {
 		return itens;
+	}
+
+	public Double getTotal() {
+		return itens.stream().mapToDouble(ItemCompra::getSubTotal).sum();
 	}
 
 	@Override
@@ -87,10 +89,5 @@ public class Compra implements Serializable {
 		Compra other = (Compra) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
-	
-	
-	
 
 }

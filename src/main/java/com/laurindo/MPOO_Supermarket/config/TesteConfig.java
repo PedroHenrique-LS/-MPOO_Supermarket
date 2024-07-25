@@ -62,14 +62,7 @@ public class TesteConfig implements CommandLineRunner {
 		var categoria1 = new Categoria(null, "Eletrônicos");
 		var categoria2 = new Categoria(null, "TVs");
 		var categoria3 = new Categoria(null, "Celulares");
-		var itemCompra1 = new ItemCompra(produto1, compra1, 3, produto1.getPreco());
-		var itemCompra2 = new ItemCompra(produto2, compra1, 3, produto2.getPreco());
 		
-		
-		
-		
-		compra1.getItens().add(itemCompra1);
-		compra1.getItens().add(itemCompra2);
 		
 		categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3));
 		gerenteRepository.save(gerente1);
@@ -79,10 +72,14 @@ public class TesteConfig implements CommandLineRunner {
 		produto1.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
 		produto2.getCategorias().addAll(Arrays.asList(categoria1, categoria3));
 		produtoRepository.saveAll(Arrays.asList(produto1, produto2));
+		
 		var pagamento1 = new Pagamento(null, compra1);
 		compra1.setPagamento(pagamento1);
 		compraRepository.save(compra1);
-		//compraRepository.save(compra1);
+		var itemCompra1 = new ItemCompra(produto1, compra1, 3, produto1.getPreco());
+		var itemCompra2 = new ItemCompra(produto2, compra1, 3, produto2.getPreco());
+		itemCompraRepository.saveAll(Arrays.asList(itemCompra1, itemCompra2));
+	
 		itemCompraRepository.saveAll(Arrays.asList(itemCompra1, itemCompra2));
 		
 		

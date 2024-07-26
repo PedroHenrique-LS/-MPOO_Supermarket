@@ -25,6 +25,10 @@ public class Vendedor extends Funcionario {
 		super(cpf, nome);
 		this.codVendedor = codVendedor;
 	}
+	
+	public double getComissao() {
+		return getsomaValorVendas() * TAXA_COMISSAO;
+	}
 
 	@Override
 	public void calcularSalario() {

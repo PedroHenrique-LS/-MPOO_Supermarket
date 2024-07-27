@@ -19,6 +19,7 @@ public class ItemCompra implements Serializable {
 	private ItemCompraPK id = new ItemCompraPK();
 	private Integer quantidade;
 	private Double preco;
+	private Double desconto;
 	
 	public ItemCompra() {}
 	
@@ -67,7 +68,16 @@ public class ItemCompra implements Serializable {
 	}
 	
 	public Double getSubTotal() {
-		return quantidade * preco;
+		return quantidade * preco - desconto;
+	}
+	
+
+	public Double getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto;
 	}
 
 	@Override

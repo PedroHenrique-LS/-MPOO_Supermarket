@@ -23,6 +23,7 @@ public class Compra implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	private Double desconto;
 	private Instant momento;
 
 	@OneToMany(mappedBy = "id.compra")
@@ -48,6 +49,14 @@ public class Compra implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public Double getDesconto() {
+		return desconto;
+	}
+
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto;
+	}
 
 	public Instant getMomento() {
 		return momento;
@@ -70,7 +79,13 @@ public class Compra implements Serializable {
 	}
 
 	public Double getTotal() {
-		return itens.stream().mapToDouble(ItemCompra::getSubTotal).sum();
+		var soma = 0.0;
+		for (ItemCompra item : itens) {
+			soma += item.getSubTotal();
+			desconto += item.getDesconto();
+		}
+		
+		return soma - desconto;
 	}
 
 	@Override

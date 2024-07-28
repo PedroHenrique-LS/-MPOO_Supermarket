@@ -22,11 +22,11 @@ public class Compra implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private Double desconto;
+	private long id;
+	private double desconto;
 	private Instant momento;
 
-	@OneToMany(mappedBy = "id.compra")
+	@OneToMany(mappedBy = "id.compra", cascade = CascadeType.ALL)
 	private Set<ItemCompra> itens = new HashSet<>();
 
 	@OneToOne(mappedBy = "compra", cascade = CascadeType.ALL)
@@ -50,11 +50,11 @@ public class Compra implements Serializable {
 		this.id = id;
 	}
 	
-	public Double getDesconto() {
+	public double getDesconto() {
 		return desconto;
 	}
 
-	public void setDesconto(Double desconto) {
+	public void setDesconto(double desconto) {
 		this.desconto = desconto;
 	}
 

@@ -1,12 +1,20 @@
 package com.laurindo.MPOO_Supermarket.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.laurindo.MPOO_Supermarket.entity.Compra;
+import com.laurindo.MPOO_Supermarket.entity.Gerente;
 import com.laurindo.MPOO_Supermarket.entity.ItemCompra;
+import com.laurindo.MPOO_Supermarket.repository.GerenteRepository;
 
 @Service
 public class GerenteService {
+	
+	@Autowired
+	GerenteRepository gerenteRepository;
 	
 	public void darDesconto(ItemCompra item, double novoValor) {
 		
@@ -37,6 +45,34 @@ public class GerenteService {
 		
 		compra.setDesconto(valorCompra - novoValor);
 		
+		
 	}
+	
+	
+	public Gerente saveGerente(Gerente gerente) {
+		return gerenteRepository.save(gerente);
+	}
+	
+	public Gerente findGerenteById(String cpf) {
+		var gerente = gerenteRepository.findById(cpf).orElseThrow(() -> new IllegalArgumentException("Gerente de cpf: " + cpf + " não encontrado."));
+		return gerente;
+	}
+	
+	public List<Gerente> findAllGerente() {
+		return gerenteRepository.findAll();
+	}
+	
+	public Gerente updateGerente(String cpf, Gerente gerenteUpdated) {
+		var oldGerente = findGerenteById(cpf);
+		oldGerente.setNome(gerenteUpdated.getNome());
+		return gerenteRepository.save(oldGerente);
+	}
+	
+	
+	public void deleteGerenteById(String cpf) {
+		var gerente = gerenteRepository.findById(cpf).orElseThrow(() -> new IllegalArgumentException("Gerente de cpf: " + cpf + " não encontrado."));
+		gerenteRepository.delete(gerente);;
+	}
+	
 	
 }

@@ -52,7 +52,7 @@ public class TesteConfig implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		var gerente1 = new Gerente("999.999.999-99", "Flavio");
+		var gerente1 = new Gerente("999.999.999-99", "Flávio");
 		var vendedor1 = new Vendedor("222.222.222-22", "João", 123L);
 		var vendedor2 = new Vendedor("3333.333.333-33", "Carlos", 456L);
 		var caixa1 = new Caixa("444.444.444-44", "Roberto");

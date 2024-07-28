@@ -16,6 +16,9 @@ public class GerenteService {
 	@Autowired
 	GerenteRepository gerenteRepository;
 	
+	@Autowired
+	CompraService compraService;
+	
 	public void darDesconto(ItemCompra item, double novoValor) {
 		
 		if(item == null)
@@ -29,7 +32,7 @@ public class GerenteService {
 		item.setDesconto(valorItem - novoValor);
 	}
 
-	public void darDesconto(Compra compra, double novoValor) {
+	public Compra darDesconto(Compra compra, double novoValor) {
 		
 		if(compra == null)
 			throw new IllegalArgumentException("A compra passada não é válida.");
@@ -45,6 +48,7 @@ public class GerenteService {
 		
 		compra.setDesconto(valorCompra - novoValor);
 		
+		return compraService.updateCompra(compra.getId(), compra);
 		
 	}
 	

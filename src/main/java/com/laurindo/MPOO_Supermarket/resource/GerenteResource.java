@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.laurindo.MPOO_Supermarket.entity.Compra;
 import com.laurindo.MPOO_Supermarket.entity.Gerente;
+import com.laurindo.MPOO_Supermarket.entity.ItemCompra;
 import com.laurindo.MPOO_Supermarket.service.GerenteService;
 
 @RestController
@@ -28,6 +29,11 @@ public class GerenteResource {
 	@PutMapping(value = "/{novoValor}")
 	public ResponseEntity<Compra> darDesconto(@RequestBody Compra compra, @PathVariable double novoValor) {
 		return ResponseEntity.status(HttpStatus.OK).body(gerenteService.darDesconto(compra, novoValor));
+	}
+	
+	@PutMapping(value = "/{novoValor}/{compraId}")
+	public ResponseEntity<ItemCompra> darDesconto(@RequestBody ItemCompra itemCompra, @PathVariable double novoValor, @PathVariable long compraId) {
+		return ResponseEntity.status(HttpStatus.OK).body(gerenteService.darDesconto(compraId, itemCompra, novoValor));
 	}
 
 	@PostMapping

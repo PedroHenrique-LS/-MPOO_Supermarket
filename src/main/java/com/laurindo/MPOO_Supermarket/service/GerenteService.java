@@ -19,17 +19,21 @@ public class GerenteService {
 	@Autowired
 	CompraService compraService;
 	
-	public void darDesconto(ItemCompra item, double novoValor) {
+	@Autowired
+	ItemCompraService itemCompraService;
+	
+	public ItemCompra darDesconto(long compraId, ItemCompra itemCompraUpdated, double novoValor) {
 		
-		if(item == null)
-			throw new IllegalArgumentException("O item passado não é válido.");
+		if(itemCompraUpdated == null)
+			throw new IllegalArgumentException("O itemCompraUpdated passado não é válido.");
 		
-		var valorItem = item.getSubTotal() + item.getDesconto();
+		var valorItem = itemCompraUpdated.getSubTotal() + itemCompraUpdated.getDesconto();
 		
 		if(novoValor < valorItem - valorItem * 0.10 )
-			throw new IllegalArgumentException("Desconto não aprovado. Descontos não podem ultrapassar 10% do valor do item");
+			throw new IllegalArgumentException("Desconto não aprovado. Descontos não podem ultrapassar 10% do valor do itemCompraUpdated");
 		
-		item.setDesconto(valorItem - novoValor);
+		itemCompraUpdated.setDesconto(valorItem - novoValor);
+		return itemCompraService.updateItemCompra(compraId, itemCompraUpdated.getProduto().getCod(), itemCompraUpdated);
 	}
 
 	public Compra darDesconto(Compra compra, double novoValor) {

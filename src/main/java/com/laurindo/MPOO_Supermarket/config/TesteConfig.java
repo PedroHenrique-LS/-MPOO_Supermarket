@@ -22,6 +22,7 @@ import com.laurindo.MPOO_Supermarket.repository.GerenteRepository;
 import com.laurindo.MPOO_Supermarket.repository.ItemCompraRepository;
 import com.laurindo.MPOO_Supermarket.repository.ProdutoRepository;
 import com.laurindo.MPOO_Supermarket.repository.VendedorRepository;
+import com.laurindo.MPOO_Supermarket.service.CaixaService;
 
 @Configuration
 @Profile("test")
@@ -47,6 +48,9 @@ public class TesteConfig implements CommandLineRunner {
 	
 	@Autowired
 	CategoriaRepository categoriaRepository;
+	
+	@Autowired
+	CaixaService caixaService;
 	
 	
 	@Override
@@ -75,12 +79,13 @@ public class TesteConfig implements CommandLineRunner {
 		
 		var pagamento1 = new Pagamento(null, compra1);
 		compra1.setPagamento(pagamento1);
-		compraRepository.save(compra1);
+		caixaService.registrarCompra(compra1);
 		var itemCompra1 = new ItemCompra(produto1, compra1, 3, produto1.getPreco());
 		var itemCompra2 = new ItemCompra(produto2, compra1, 3, produto2.getPreco());
+		compra1.getItens().addAll(Arrays.asList(itemCompra1, itemCompra2));
 		itemCompraRepository.saveAll(Arrays.asList(itemCompra1, itemCompra2));
 	
-		itemCompraRepository.saveAll(Arrays.asList(itemCompra1, itemCompra2));
+		caixaService.registrarCompra(compra1);
 		
 		
 		

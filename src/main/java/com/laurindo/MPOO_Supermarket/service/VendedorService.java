@@ -23,7 +23,14 @@ public class VendedorService  {
 	}
 	
 	public Vendedor findVendedorById(String cpf) {
-		var vendedor = vendedorRepository.findById(cpf).orElseThrow(() -> new IllegalArgumentException("Produto de código: " + cpf + " não encontrado."));
+		var vendedor = vendedorRepository.findById(cpf).orElseThrow(() -> new IllegalArgumentException("Vendedor de código: " + cpf + " não encontrado."));
+		return vendedor;
+	}
+	
+	public Vendedor findVendedorByCodVendedor(Long codVendedor) {
+		var vendedor = vendedorRepository.findByCodVendedor(codVendedor);
+		if (vendedor == null)
+			throw new IllegalArgumentException("Vendedor de código: " + codVendedor + " não encontrado.");
 		return vendedor;
 	}
 	

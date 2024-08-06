@@ -85,7 +85,7 @@ public class TesteConfig implements CommandLineRunner {
 		compra1.getItens().addAll(Arrays.asList(itemCompra1, itemCompra2));
 		itemCompraRepository.saveAll(Arrays.asList(itemCompra1, itemCompra2));
 	
-		caixaService.registrarCompra(compra1);
+		caixaService.registrarCompra(compra1, 456L);
 		
 		
 		

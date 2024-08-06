@@ -6,4 +6,5 @@ import com.laurindo.MPOO_Supermarket.entity.Vendedor;
 
 public interface VendedorRepository extends JpaRepository<Vendedor, String> {
 
+	Vendedor findByCodVendedor(Long codVendedor);
 }

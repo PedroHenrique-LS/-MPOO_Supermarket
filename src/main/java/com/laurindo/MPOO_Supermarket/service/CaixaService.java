@@ -50,7 +50,7 @@ public class CaixaService  {
 		});
 		
 		vendedor.setsomaValorVendas(compra.getTotal());
-		vendedorService.updateVendedor(vendedor.getCpf(), vendedor);
+		vendedorService.updateVendedor(vendedor.getCodVendedor(), vendedor);
 		
 		return compraService.saveCompra(compra);
 	}

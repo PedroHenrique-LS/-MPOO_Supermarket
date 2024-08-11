@@ -31,6 +31,7 @@ public class VendedorService  {
 		var vendedor = vendedorRepository.findByCodVendedor(codVendedor);
 		if (vendedor == null)
 			throw new IllegalArgumentException("Vendedor de código: " + codVendedor + " não encontrado.");
+		vendedor.calcularSalario();
 		return vendedor;
 	}
 	
@@ -38,16 +39,16 @@ public class VendedorService  {
 		return vendedorRepository.findAll();
 	}
 	
-	public Vendedor updateVendedor(String cpf, Vendedor vendedorUpdated) {
-		var oldVendedor = findVendedorById(cpf);
+	public Vendedor updateVendedor(Long codVendedor, Vendedor vendedorUpdated) {
+		var oldVendedor = findVendedorByCodVendedor(codVendedor);
 		oldVendedor.setNome(vendedorUpdated.getNome());
 		oldVendedor.setsomaValorVendas(vendedorUpdated.getsomaValorVendas());
 		return vendedorRepository.save(oldVendedor);
 	}
 	
 	
-	public void deleteVendedorById(String cpf) {
-		var vendedor = findVendedorById(cpf);
+	public void deleteVendedorByCodVendedor(Long codVendedor) {
+		var vendedor = findVendedorByCodVendedor(codVendedor);
 		vendedorRepository.delete(vendedor);
 	}
 

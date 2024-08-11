@@ -49,6 +49,7 @@ public abstract class Funcionario implements Serializable {
 		this.cpf = cpf;
 	}
 	public double getSlario() {
+		calcularSalario();
 		return slario;
 	}
 	public void setSlario(double slario) {

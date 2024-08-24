@@ -42,7 +42,6 @@ public class VendedorService  {
 	public Vendedor updateVendedor(Long codVendedor, Vendedor vendedorUpdated) {
 		var oldVendedor = findVendedorByCodVendedor(codVendedor);
 		oldVendedor.setNome(vendedorUpdated.getNome());
-		oldVendedor.setsomaValorVendas(vendedorUpdated.getsomaValorVendas());
 		return vendedorRepository.save(oldVendedor);
 	}
 	

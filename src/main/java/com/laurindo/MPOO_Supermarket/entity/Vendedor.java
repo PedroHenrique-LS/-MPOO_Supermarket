@@ -40,7 +40,7 @@ public class Vendedor extends Funcionario {
 		return somaValorVendas;
 	}
 	public void setsomaValorVendas(double valorVenda) {
-		this.somaValorVendas += valorVenda;
+		somaValorVendas += valorVenda;
 	}
 	public Long getCodVendedor() {
 		return codVendedor;

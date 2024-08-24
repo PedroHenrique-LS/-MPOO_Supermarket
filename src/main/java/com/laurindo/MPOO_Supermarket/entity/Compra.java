@@ -36,8 +36,7 @@ public class Compra implements Serializable {
 		this.momento = Instant.now();
 	}
 
-	public Compra(Long id, Pagamento pagamento) {
-		this.id = id;
+	public Compra(Pagamento pagamento) {
 		this.momento = Instant.now();
 		this.pagamento = pagamento;
 	}

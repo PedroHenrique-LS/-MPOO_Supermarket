@@ -23,11 +23,11 @@ public class ItemCompra implements Serializable {
 	
 	public ItemCompra() {}
 	
-	public ItemCompra(Produto produto, Compra compra, Integer quantidade, Double preco) {
+	public ItemCompra(Produto produto, Compra compra, Integer quantidade) {
 		setProduto(produto);
 		setCompra(compra);
 		this.quantidade = quantidade;
-		this.preco = preco;
+		this.preco = produto.getPreco();
 	}
 	
 	
